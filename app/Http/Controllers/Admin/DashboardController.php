@@ -30,7 +30,9 @@ class DashboardController extends Controller
             'revenue_month' => Payment::where('status', 'verified')
                 ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
                 ->sum('amount'),
-            'total_customers' => DB::table('users')->where('role', 'customer')->count(),
+            'total_customers' => Booking::select('customer_name', 'customer_phone')
+                ->distinct()
+                ->count(DB::raw('CONCAT(customer_name, customer_phone)')),
             'completed' => Booking::where('status', 'completed')->count(),
         ];
 

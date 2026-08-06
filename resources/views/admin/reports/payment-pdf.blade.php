@@ -14,8 +14,15 @@
 </head>
 <body>
     <div class="header">
-        <h2>Laporan Pendapatan</h2>
+        @if($studioSettings['logo'])
+            <img src="{{ storage_path('app/public/' . $studioSettings['logo']) }}" style="max-height:50px;margin-bottom:10px;" alt="Logo">
+        @endif
+        <h2>{{ $studioSettings['name'] }}</h2>
+        <h3>Laporan Pendapatan</h3>
         <p>Periode: {{ \Carbon\Carbon::parse($startDate)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($endDate)->format('d/m/Y') }}</p>
+        @if($studioSettings['address'])
+            <p>{{ $studioSettings['address'] }}</p>
+        @endif
     </div>
 
     <table>

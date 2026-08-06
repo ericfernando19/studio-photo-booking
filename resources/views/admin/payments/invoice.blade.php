@@ -17,8 +17,20 @@
 </head>
 <body>
     <div class="header">
-        <h1>STUDIO FOTO BOOKING</h1>
-        <p>Jl. Contoh Alamat No. 123 | Telp: 08123456789</p>
+        @if($studioSettings['logo'])
+            <img src="{{ storage_path('app/public/' . $studioSettings['logo']) }}" style="max-height:60px;margin-bottom:10px;" alt="Logo">
+        @endif
+        <h1>{{ strtoupper($studioSettings['name']) }}</h1>
+        @if($studioSettings['address'])
+            <p>{{ $studioSettings['address'] }}</p>
+        @endif
+        @if($studioSettings['phone'] || $studioSettings['email'])
+            <p>
+                @if($studioSettings['phone'])Telp: {{ $studioSettings['phone'] }}@endif
+                @if($studioSettings['phone'] && $studioSettings['email']) | @endif
+                @if($studioSettings['email'])Email: {{ $studioSettings['email'] }}@endif
+            </p>
+        @endif
     </div>
 
     <div class="info-row">

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\QueueController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StudioController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\PublicBookingController;
@@ -81,6 +82,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/reports/package/excel', [ReportController::class, 'exportPackageExcel'])->name('reports.package.excel');
     Route::get('/reports/customer/excel', [ReportController::class, 'exportCustomerExcel'])->name('reports.customer.excel');
 
+    // Settings
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
 });
 
 // Catch-all: redirect URL admin yang tidak dikenal
