@@ -80,4 +80,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/reports/payment/excel', [ReportController::class, 'exportPaymentExcel'])->name('reports.payment.excel');
     Route::get('/reports/package/excel', [ReportController::class, 'exportPackageExcel'])->name('reports.package.excel');
     Route::get('/reports/customer/excel', [ReportController::class, 'exportCustomerExcel'])->name('reports.customer.excel');
+
+});
+
+// Catch-all: redirect URL admin yang tidak dikenal
+Route::fallback(function () {
+    $path = request()->path();
+    if (str_starts_with($path, 'admin')) {
+        if (auth()->check() && auth()->user()->isAdmin()) {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->route('admin.login');
+    }
+    abort(404);
 });
